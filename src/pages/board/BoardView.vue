@@ -1,18 +1,18 @@
 <template>
     <div>
         <h1>BoardView</h1>
-        <PostElement 
+        <BoardItem 
             v-for="(post, index) in posts"
             :key="index"
             :postValue="post"
-            ></PostElement>
+            ></BoardItem>
     </div>
 </template>
 <script setup>
 import {reactive, defineProps} from 'vue';
-import PostElement from '@/features/post/PostElement.vue';
-import BoardModel from '@/entities/board/model/boardModel';
-import postApi from '@/entities/post/api/postApi';
+import boardApi from '@/entities/board/api/boardApi';
+import BoardModel from '@/entities/board/model/board';
+import BoardItem from '@/features/board/BoardItem.vue';
 
 const props = defineProps({
     boardValue: {
@@ -22,5 +22,5 @@ const props = defineProps({
 });
 
 const board = reactive(BoardModel.of(props.boardValue));
-const posts = postApi.findAllPosts(board.id);
+const posts = boardApi.findAllPosts(board.id);
 </script>
